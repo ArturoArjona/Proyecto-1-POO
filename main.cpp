@@ -65,6 +65,7 @@ int main()
        }
        cont1++;
      }
+     //decodifica operador
      if(op==mas){
        op="+";
      }
@@ -77,6 +78,7 @@ int main()
      else{
        op="/";
      }
+     //decodifica segundo numero
      while(cont2<l2){
        dig=num2.substr(cont2,1);
        num2.erase(cont2,1);
@@ -112,15 +114,38 @@ int main()
        }
        cont2++;
      }
+     //guarda numero en archivo intermedio
      archInt << op << "\t"<< num1 << "\t" << num2 << endl;
    }
    archInt.close();
+   //leer operador y numero y guardarlo en el archivo de salida junto con la resolucion
+   //abrimos archivo intermedio
+   ifstream archIn;
+   archIn.open("Intermediario.txt");
+   int n1, n2, r;
+   //resolvemos operacion
+   while(archIn >> op >> n1 >>n2){
+     if(op=="+"){
+       r=n1+n2;
+     }
+     else if(op=="-"){
+       r=n1-n2;
+     }
+     else if(op=="*"){
+       r=n1*n2;
+     }
+     else{
+       r=n1/n2;
+     }
+     //escribimos en archivo de salida
+     archSal << "(" << n1 << ") " << op << " (" << n2 << ") = " << r << endl;
+   }
 
 
 
 
-
-
+   //cerramos archivos
+   archIn.close();
    archEnt.close();
    archSal.close();
 
